@@ -1,0 +1,4 @@
+interface:
+  display_name: "混元 3D 动画（待接入）"
+  short_description: "混元 3D 动画技能占位，绑骨蒙皮与动作功能待提供文档后接入"
+  default_prompt: "使用 $hunyuan-3d-animation 查看当前占位状态，并根据我提供的文档完善功能。"

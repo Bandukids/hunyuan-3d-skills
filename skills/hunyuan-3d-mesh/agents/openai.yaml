@@ -1,0 +1,4 @@
+interface:
+  display_name: "混元 3D 网格处理"
+  short_description: "通过腾讯混元拆分组件、智能减面与格式转换，支持任务恢复和结果下载"
+  default_prompt: "使用 $hunyuan-3d-mesh 按我的要求拆分组件、减面或转换格式，并下载处理结果。"

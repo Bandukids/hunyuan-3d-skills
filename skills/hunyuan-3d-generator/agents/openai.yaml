@@ -1,0 +1,4 @@
+interface:
+  display_name: "混元 3D 模型生成"
+  short_description: "通过腾讯 TokenHub 混元专业版与 Express 极速版生成并下载 3D 模型"
+  default_prompt: "Use $hunyuan-3d-generator to generate and download a HY-3D-3.1 model from my prompt or reference images through TokenHub."
