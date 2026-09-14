@@ -1,0 +1,18 @@
+name: Feature request / 功能建议
+description: 提出使用场景、接口能力或文档改进。
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景与目标
+      description: 希望完成什么工作？目前在哪一步受限？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议的行为
+      description: 如涉及腾讯云新接口，请附官方文档链接和示例输入输出类型。
+    validations:
+      required: true

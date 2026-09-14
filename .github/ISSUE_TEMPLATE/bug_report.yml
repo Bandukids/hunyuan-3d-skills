@@ -1,0 +1,45 @@
+name: Bug report / 缺陷反馈
+description: 报告可复现的调用、校验或下载问题。
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "请移除 API Key、Authorization 头、签名 URL 和私人素材链接；无需提交真实模型即可先报告问题。"
+  - type: dropdown
+    id: skill
+    attributes:
+      label: 相关技能
+      options:
+        - hunyuan-3d-generator
+        - hunyuan-3d-mesh
+        - hunyuan-3d-material
+        - hunyuan-3d-animation
+        - 安装或仓库文档
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 运行环境
+      description: 操作系统、Python 版本、仓库提交或更新日期。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 提供脱敏命令、模型参数及 dry-run 是否通过；不要粘贴完整环境变量。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 脱敏错误信息
+      description: 仅保留定位问题需要的输出。
+      render: text
