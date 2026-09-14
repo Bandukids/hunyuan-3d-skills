@@ -7,9 +7,9 @@
 | [hunyuan-3d-generator](skills/hunyuan-3d-generator/SKILL.md) | 已实现 | 专业版 3.1/3.0、Express 的文字/图片生成，多视图、查询与下载 |
 | [hunyuan-3d-mesh](skills/hunyuan-3d-mesh/SKILL.md) | 已实现，网格 API 尚未实测 | 组件拆分、智能减面/重拓扑、格式转换、查询与下载 |
 | [hunyuan-3d-material](skills/hunyuan-3d-material/SKILL.md) | 已实现，材质 API 尚未实测 | 文字/图片生成纹理，自动 UV 展开，PBR、保留 UV、多视图、查询与下载 |
-| [hunyuan-3d-animation](skills/hunyuan-3d-animation/SKILL.md) | 已实现，绑骨 API 尚未实测 | 人物/动物绑骨蒙皮，可选人形动作模板、查询与下载 |
+| [hunyuan-3d-animation](skills/hunyuan-3d-animation/SKILL.md) | 已实现，动画 API 尚未实测 | 绑骨蒙皮、人形动作模板、文生动作、受限重定向对象透传、查询与下载 |
 
-材质技能当前支持纹理生成和自动 UV 展开，烘焙待接入。动画技能已支持绑骨蒙皮和人形动作模板，独立文生动作与自定义重定向待接入。
+材质技能当前支持纹理生成和自动 UV 展开，烘焙待接入。动画技能支持绑骨蒙皮、动作模板和文生动作；重定向仅保留已确认原生对象的透传入口，不支持任意骨架。
 
 ## 安装
 
@@ -47,11 +47,14 @@ python skills/hunyuan-3d-material/scripts/hunyuan_material.py texture --file-url
 python skills/hunyuan-3d-material/scripts/hunyuan_material.py uv --file-url "https://example.com/model.fbx" --dry-run
 python skills/hunyuan-3d-animation/scripts/hunyuan_animation.py rig --file-url "https://example.com/character.glb" --dry-run
 python skills/hunyuan-3d-animation/scripts/hunyuan_animation.py list-motions
+python skills/hunyuan-3d-animation/scripts/hunyuan_animation.py motion --prompt "A person walks forward" --duration 5 --dry-run
 ```
 
 示例链接仅用于演示。`--dry-run` 不联网、不读取密钥、不消耗额度；真实调用前按技能说明准备输入。恢复已有网格任务时保留原地域并正确指定 `--model component|retopology|format`，不要重新提交代替恢复。
 
 材质技能的 `submit` 和 `query` 默认使用纹理模型，UV 任务须显式传 `--model uv`。UV 的输入尺寸/几何预检仅检查已知测量值，实际限制和单位说明见该技能的 `references/uv.md`。
+
+动画技能的 `submit` 和 `query` 默认使用绑骨模型，文生动作须显式传 `--model motion`。文生动作的重定向来源要求及对象结构缺口见该技能的 `references/motion.md`。
 
 ## 验证
 
@@ -62,6 +65,6 @@ python -B -m unittest discover -s skills/hunyuan-3d-material/scripts -p "test_*.
 python -B -m unittest discover -s skills/hunyuan-3d-animation/scripts -p "test_*.py" -v
 ```
 
-当前共 181 项离线测试（生成客户端 57 项，网格客户端 56 项，材质客户端 49 项，动画客户端 19 项），模拟网络并阻止实际连接。测试通过不代表云端模型权限、额度或资产质量已验证。
+当前共 200 项离线测试（生成客户端 57 项，网格客户端 56 项，材质客户端 49 项，动画客户端 38 项），模拟网络并阻止实际连接。测试通过不代表云端模型权限、额度或资产质量已验证。
 
 原始 API 文档、参数限制和已知差异位于各技能的 `references/`。仓库仅包含技能源码、说明和测试，不包含生成素材、任务记录或凭据。

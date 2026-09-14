@@ -1,4 +1,4 @@
 interface:
   display_name: "混元 3D 动画"
-  short_description: "为人物或动物模型自动绑骨蒙皮，支持人形动作模板、任务查询和结果下载"
-  default_prompt: "使用 $hunyuan-3d-animation 为我的角色模型绑骨蒙皮，并下载生成的模型。"
+  short_description: "为角色绑骨蒙皮或根据文字生成动画，支持人形动作模板、时长设置和 FBX 下载"
+  default_prompt: "使用 $hunyuan-3d-animation 根据我的动作描述生成动画，并下载 FBX 文件。"

@@ -114,7 +114,7 @@ class RiggingTests(unittest.TestCase):
     def test_unsupported_api_features_are_rejected(self):
         for extra in (("--prompt", "walk"), ("--duration", "5"), ("--skeleton-type", "mixamo"),
                       ("--enable-pbr",), ("--face-count", "30000"), ("--result-format", "obj"),
-                      ("--file-type", "obj"), ("--provider", "legacy"), ("--model", "motion")):
+                      ("--file-type", "obj"), ("--provider", "legacy"), ("--model", "3.1")):
             with contextlib.redirect_stderr(self.err), self.assertRaises(SystemExit):
                 self.rig(*extra)
         self.opener.open.assert_not_called()
