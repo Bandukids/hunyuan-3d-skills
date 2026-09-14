@@ -7,9 +7,9 @@
 | [hunyuan-3d-generator](skills/hunyuan-3d-generator/SKILL.md) | 已实现 | 专业版 3.1/3.0、Express 的文字/图片生成，多视图、查询与下载 |
 | [hunyuan-3d-mesh](skills/hunyuan-3d-mesh/SKILL.md) | 已实现，网格 API 尚未实测 | 组件拆分、智能减面/重拓扑、格式转换、查询与下载 |
 | [hunyuan-3d-material](skills/hunyuan-3d-material/SKILL.md) | 已实现，材质 API 尚未实测 | 文字/图片生成纹理，自动 UV 展开，PBR、保留 UV、多视图、查询与下载 |
-| [hunyuan-3d-animation](skills/hunyuan-3d-animation/SKILL.md) | 占位，待接入 | 后续补充绑骨蒙皮和动作相关需求 |
+| [hunyuan-3d-animation](skills/hunyuan-3d-animation/SKILL.md) | 已实现，绑骨 API 尚未实测 | 人物/动物绑骨蒙皮，可选人形动作模板、查询与下载 |
 
-材质技能当前支持纹理生成和自动 UV 展开，烘焙待接入。动画技能仍为占位版本，没有可执行功能。
+材质技能当前支持纹理生成和自动 UV 展开，烘焙待接入。动画技能已支持绑骨蒙皮和人形动作模板，独立文生动作与自定义重定向待接入。
 
 ## 安装
 
@@ -22,7 +22,7 @@ cd hunyuan-3d-skills
 
 将 `skills/` 中需要的技能目录复制到 Codex 的技能目录（默认 `~/.codex/skills/`，自定义时使用 `$CODEX_HOME/skills/`）。更新已有技能前先保留本地修改。
 
-`hunyuan-3d-mesh` 和 `hunyuan-3d-material` 必须与最新版 `hunyuan-3d-generator` 一同安装，保持以下结构；二者复用相邻生成技能的鉴权、提交、轮询和下载实现。材质客户端会检查共用客户端是否支持纹理图片脱敏。
+`hunyuan-3d-mesh`、`hunyuan-3d-material` 和 `hunyuan-3d-animation` 必须与最新版 `hunyuan-3d-generator` 一同安装，保持以下结构；三者复用相邻生成技能的鉴权、提交、轮询和下载实现。材质客户端会检查共用客户端是否支持纹理图片脱敏。
 
 ```text
 skills/
@@ -45,6 +45,8 @@ python skills/hunyuan-3d-mesh/scripts/hunyuan_mesh.py reduce --file-url "https:/
 python skills/hunyuan-3d-mesh/scripts/hunyuan_mesh.py convert --file-url "https://example.com/model.glb" --format fbx --dry-run
 python skills/hunyuan-3d-material/scripts/hunyuan_material.py texture --file-url "https://example.com/model.glb" --prompt "青绿色釉面陶瓷" --enable-pbr --dry-run
 python skills/hunyuan-3d-material/scripts/hunyuan_material.py uv --file-url "https://example.com/model.fbx" --dry-run
+python skills/hunyuan-3d-animation/scripts/hunyuan_animation.py rig --file-url "https://example.com/character.glb" --dry-run
+python skills/hunyuan-3d-animation/scripts/hunyuan_animation.py list-motions
 ```
 
 示例链接仅用于演示。`--dry-run` 不联网、不读取密钥、不消耗额度；真实调用前按技能说明准备输入。恢复已有网格任务时保留原地域并正确指定 `--model component|retopology|format`，不要重新提交代替恢复。
@@ -57,8 +59,9 @@ python skills/hunyuan-3d-material/scripts/hunyuan_material.py uv --file-url "htt
 python -B -m unittest discover -s skills/hunyuan-3d-generator/scripts -p "test_*.py" -v
 python -B -m unittest discover -s skills/hunyuan-3d-mesh/scripts -p "test_*.py" -v
 python -B -m unittest discover -s skills/hunyuan-3d-material/scripts -p "test_*.py" -v
+python -B -m unittest discover -s skills/hunyuan-3d-animation/scripts -p "test_*.py" -v
 ```
 
-当前共 162 项离线测试（生成客户端 57 项，网格客户端 56 项，材质客户端 49 项），模拟网络并阻止实际连接。动画占位技能仅做结构校验。测试通过不代表云端模型权限、额度或资产质量已验证。
+当前共 181 项离线测试（生成客户端 57 项，网格客户端 56 项，材质客户端 49 项，动画客户端 19 项），模拟网络并阻止实际连接。测试通过不代表云端模型权限、额度或资产质量已验证。
 
 原始 API 文档、参数限制和已知差异位于各技能的 `references/`。仓库仅包含技能源码、说明和测试，不包含生成素材、任务记录或凭据。
