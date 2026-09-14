@@ -1,4 +1,4 @@
 interface:
-  display_name: "混元 3D 材质（待接入）"
-  short_description: "混元 3D 材质技能占位，纹理与 UV 功能待提供文档后接入"
-  default_prompt: "使用 $hunyuan-3d-material 查看当前占位状态，并根据我提供的文档完善功能。"
+  display_name: "混元 3D 材质"
+  short_description: "为已有模型生成纹理贴图，支持文字或图片参考、PBR、保留 UV 和多视图"
+  default_prompt: "使用 $hunyuan-3d-material 为我的 OBJ 或 GLB 模型生成纹理贴图，并下载全部材质资源。"

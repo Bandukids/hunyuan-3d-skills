@@ -35,6 +35,7 @@ TERMINAL_STATUSES = {"DONE", "FAIL"}
 RUNNING_STATUSES = {"WAIT", "RUN"}
 SUPPORTED_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 COMMON_CLIENT_API_VERSION = 1  # Shared by the adjacent hunyuan-3d-mesh skill.
+COMMON_CLIENT_FEATURES = frozenset({"texture_image_redaction"})
 
 
 class HunyuanError(RuntimeError):
@@ -409,6 +410,8 @@ def redact(value: Any, field: str = "") -> Any:
     if isinstance(value, list):
         return [redact(child, field) for child in value]
     if isinstance(value, str):
+        if field == "image" and not value.lower().startswith(("https://", "http://")):
+            return "<image data omitted>"
         if field == "part_segmentation_info":
             return "<segmentation JSON omitted>"
         if any(word in field.lower() for word in ("base64", "authorization", "api_key")):
