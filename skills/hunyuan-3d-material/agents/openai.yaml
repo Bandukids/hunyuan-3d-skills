@@ -1,4 +1,4 @@
 interface:
   display_name: "混元 3D 材质"
-  short_description: "为已有模型生成纹理贴图，支持文字或图片参考、PBR、保留 UV 和多视图"
-  default_prompt: "使用 $hunyuan-3d-material 为我的 OBJ 或 GLB 模型生成纹理贴图，并下载全部材质资源。"
+  short_description: "为已有模型生成纹理贴图或自动展开 UV，支持 PBR、保留 UV 和资源下载"
+  default_prompt: "使用 $hunyuan-3d-material 为我的模型执行纹理生成或 UV 展开，并下载结果。"

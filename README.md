@@ -6,10 +6,10 @@
 |---|---|---|
 | [hunyuan-3d-generator](skills/hunyuan-3d-generator/SKILL.md) | 已实现 | 专业版 3.1/3.0、Express 的文字/图片生成，多视图、查询与下载 |
 | [hunyuan-3d-mesh](skills/hunyuan-3d-mesh/SKILL.md) | 已实现，网格 API 尚未实测 | 组件拆分、智能减面/重拓扑、格式转换、查询与下载 |
-| [hunyuan-3d-material](skills/hunyuan-3d-material/SKILL.md) | 已实现，纹理 API 尚未实测 | 文字/图片生成纹理，PBR、保留 UV、多视图、查询与资源下载 |
+| [hunyuan-3d-material](skills/hunyuan-3d-material/SKILL.md) | 已实现，材质 API 尚未实测 | 文字/图片生成纹理，自动 UV 展开，PBR、保留 UV、多视图、查询与下载 |
 | [hunyuan-3d-animation](skills/hunyuan-3d-animation/SKILL.md) | 占位，待接入 | 后续补充绑骨蒙皮和动作相关需求 |
 
-材质技能当前支持纹理生成，独立 UV 展开和烘焙待接入。动画技能仍为占位版本，没有可执行功能。
+材质技能当前支持纹理生成和自动 UV 展开，烘焙待接入。动画技能仍为占位版本，没有可执行功能。
 
 ## 安装
 
@@ -44,9 +44,12 @@ python skills/hunyuan-3d-mesh/scripts/hunyuan_mesh.py split --file-url "https://
 python skills/hunyuan-3d-mesh/scripts/hunyuan_mesh.py reduce --file-url "https://example.com/model.glb" --face-level medium --dry-run
 python skills/hunyuan-3d-mesh/scripts/hunyuan_mesh.py convert --file-url "https://example.com/model.glb" --format fbx --dry-run
 python skills/hunyuan-3d-material/scripts/hunyuan_material.py texture --file-url "https://example.com/model.glb" --prompt "青绿色釉面陶瓷" --enable-pbr --dry-run
+python skills/hunyuan-3d-material/scripts/hunyuan_material.py uv --file-url "https://example.com/model.fbx" --dry-run
 ```
 
 示例链接仅用于演示。`--dry-run` 不联网、不读取密钥、不消耗额度；真实调用前按技能说明准备输入。恢复已有网格任务时保留原地域并正确指定 `--model component|retopology|format`，不要重新提交代替恢复。
+
+材质技能的 `submit` 和 `query` 默认使用纹理模型，UV 任务须显式传 `--model uv`。UV 的输入尺寸/几何预检仅检查已知测量值，实际限制和单位说明见该技能的 `references/uv.md`。
 
 ## 验证
 
@@ -56,6 +59,6 @@ python -B -m unittest discover -s skills/hunyuan-3d-mesh/scripts -p "test_*.py" 
 python -B -m unittest discover -s skills/hunyuan-3d-material/scripts -p "test_*.py" -v
 ```
 
-当前共 142 项离线测试（生成客户端 57 项，网格客户端 56 项，材质客户端 29 项），模拟网络并阻止实际连接。动画占位技能仅做结构校验。测试通过不代表云端模型权限、额度或资产质量已验证。
+当前共 162 项离线测试（生成客户端 57 项，网格客户端 56 项，材质客户端 49 项），模拟网络并阻止实际连接。动画占位技能仅做结构校验。测试通过不代表云端模型权限、额度或资产质量已验证。
 
 原始 API 文档、参数限制和已知差异位于各技能的 `references/`。仓库仅包含技能源码、说明和测试，不包含生成素材、任务记录或凭据。
